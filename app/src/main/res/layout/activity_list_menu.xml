@@ -34,13 +34,6 @@
             android:hint="Harga"
             android:layout_below="@id/deskripsi"
             android:inputType="text" />
-        <EditText
-            android:id="@+id/gambar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Upload Gambar"
-            android:layout_below="@id/harga"
-            android:inputType="text" />
     </RelativeLayout>
 
     <Button

@@ -3,13 +3,18 @@ package com.example.mycafe30;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +36,7 @@ public class ListMenu extends AppCompatActivity {
     List<Menu> Menus;
 
     Button btnAdd;
-    EditText editTextNamaMenu, editTextDeskripsi, editTextHarga, editTextGambar;
+    EditText editTextNamaMenu, editTextDeskripsi, editTextHarga;
     ListView listViewMenus;
 
     private String TAG = "test";
@@ -90,16 +96,14 @@ public class ListMenu extends AppCompatActivity {
         final EditText updateNamaMenu = dialogView.findViewById(R.id.updateNamaMenu);
         final EditText updateDeskripsi = dialogView.findViewById(R.id.updateDeskripsi);
         final EditText updateHarga = dialogView.findViewById(R.id.updateHarga);
-        final EditText updateGambar = dialogView.findViewById(R.id.updateGambar);
 
         updateNamaMenu.setText(nama_menu);
         updateDeskripsi.setText(deskripsi);
         updateHarga.setText(harga);
-        updateGambar.setText(gambar);
 
         final Button buttonUpdate = dialogView.findViewById(R.id.buttonUpdateMenu);
         final Button buttonDelete = dialogView.findViewById(R.id.buttonDeleteMenu);
-//        final Button buttonUpload = dialogView.findViewById(R.id.buttonUploadImage);
+        final Button buttonUpload = dialogView.findViewById(R.id.buttonUploadImage);
 //        final Button buttonViewList = dialogView.findViewById(R.id.buttonViewList);
         //username for set dialog title
         dialogBuilder.setTitle("Please fill with your data");
@@ -113,7 +117,6 @@ public class ListMenu extends AppCompatActivity {
                 String nama_menu = updateNamaMenu.getText().toString().trim();
                 String deskripsi = updateDeskripsi.getText().toString().trim();
                 String harga = updateHarga.getText().toString().trim();
-                String gambar = updateGambar.getText().toString().trim();
                 //checking if the value is provided or not Here, you can Add More Validation as you required
 
                 if (!TextUtils.isEmpty(nama_menu)) {
@@ -121,7 +124,7 @@ public class ListMenu extends AppCompatActivity {
                         if (!TextUtils.isEmpty(harga)) {
                             if (!TextUtils.isEmpty(gambar)) {
                                 //Method for update data
-                                updateMenu(id_menu, nama_menu, deskripsi, harga, gambar);
+                                updateMenu(id_menu, nama_menu, deskripsi, harga, "");
                                 b.dismiss();
                             }
                         }
@@ -140,18 +143,18 @@ public class ListMenu extends AppCompatActivity {
             }
         });
 
-//        buttonUpload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //Method for delete data
-//                Intent intent = new Intent(MainActivity.this, Upload.class);
-//                intent.putExtra("key", userid);
-//                intent.putExtra("source", "user");
-//                intent.putExtra("matkuluserid", userid);
-//                intent.putExtra("urlPhoto", urlPhoto);
-//                startActivity(intent);
-//            }
-//        });
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Method for delete data
+                Intent intent = new Intent(ListMenu.this, Upload.class);
+                intent.putExtra("key", id_user);
+                intent.putExtra("source", "user");
+                intent.putExtra("menuuserid", id_user);
+                intent.putExtra("urlPhoto", "");
+                startActivity(intent);
+            }
+        });
 //
 //        buttonViewList.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -170,7 +173,6 @@ public class ListMenu extends AppCompatActivity {
         editTextNamaMenu = findViewById(R.id.nama_menu);
         editTextDeskripsi = findViewById(R.id.deskripsi);
         editTextHarga = findViewById(R.id.harga);
-        editTextGambar = findViewById(R.id.gambar);
 
         listViewMenus = findViewById(R.id.listViewMenus);
         Menus = new ArrayList<>();
@@ -186,12 +188,13 @@ public class ListMenu extends AppCompatActivity {
         });
     }
 
+
+
     private void addMenu() {
         //getting the values to save
         String nama_menu = editTextNamaMenu.getText().toString().trim();
         String deskripsi = editTextDeskripsi.getText().toString().trim();
         String harga = editTextHarga.getText().toString().trim();
-        String gambar = editTextGambar.getText().toString().trim();
 
         //checking if the value is provided or not Here, you can Add More Validation as you required
 
@@ -201,14 +204,13 @@ public class ListMenu extends AppCompatActivity {
                 //it will create a unique id and we will use it as the Primary Key for our User
                 String id = databaseReference.push().getKey();
                 //creating an User Object
-                Menu Menu = new Menu(id, nama_menu, deskripsi, harga, gambar, "1");
+                Menu Menu = new Menu(id, nama_menu, deskripsi, harga, "", "1");
                 //Saving the Menu
                 databaseReference.child(id).setValue(Menu);
 
                 editTextNamaMenu.setText("");
                 editTextDeskripsi.setText("");
                 editTextHarga.setText("");
-                editTextGambar.setText("");
                 Toast.makeText(this, "Menu added", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Please enter an Email", Toast.LENGTH_LONG).show();
@@ -237,4 +239,5 @@ public class ListMenu extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Menu Deleted", Toast.LENGTH_LONG).show();
         return true;
     }
+
 }
