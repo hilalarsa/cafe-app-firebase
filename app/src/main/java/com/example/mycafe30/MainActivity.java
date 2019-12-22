@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     List<User> Users;
 
+    private int access_code = 1; // 1 is admin, 2 is kasir
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,23 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initListener();
+
+        hideButton();
+
+    }
+
+    public void hideButton(){
+        if(access_code == 1){ //admin, show only cafe and user
+            btnCafe.setVisibility(View.VISIBLE);
+            btnUser.setVisibility(View.VISIBLE);
+            btnMenu.setVisibility(View.GONE);
+            btnMeja.setVisibility(View.GONE);
+        }else{
+            btnCafe.setVisibility(View.GONE);
+            btnUser.setVisibility(View.GONE);
+            btnMenu.setVisibility(View.VISIBLE);
+            btnMeja.setVisibility(View.VISIBLE);
+        }
 
     }
 
