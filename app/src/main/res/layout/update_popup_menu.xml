@@ -8,26 +8,19 @@
         android:id="@+id/updateNamaMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nama User"
+        android:hint="Nama Menu"
         android:padding="20dp"/>
     <EditText
         android:id="@+id/updateDeskripsi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Deskripsi"
         android:padding="20dp"/>
     <EditText
         android:id="@+id/updateHarga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
-        android:padding="20dp"/>
-    <EditText
-        android:id="@+id/updateGambar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
+        android:hint="Harga"
         android:padding="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,10 +35,10 @@
             android:layout_weight="1"
             android:background="@drawable/btnmerah"
             android:textAlignment="center"
-            android:padding="14dp"
+            android:padding="12dp"
             android:gravity="center"
             android:text="Delete"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textColor="#fff"
             />
         <Button
@@ -56,10 +49,10 @@
             android:layout_weight="1"
             android:background="@drawable/btnhijau"
             android:textAlignment="center"
-            android:padding="14dp"
+            android:padding="12dp"
             android:gravity="center"
             android:text="Update"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textColor="#fff"
             />
         <Button
@@ -70,10 +63,10 @@
             android:layout_weight="1"
             android:background="@drawable/btntosca"
             android:textAlignment="center"
-            android:padding="14dp"
+            android:padding="12dp"
             android:gravity="center"
             android:text="Upload"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textColor="#fff"
             />
     </LinearLayout>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,11 +45,8 @@ public class Upload extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String key = intent.getStringExtra("key");
-        final String menuuserid = intent.getStringExtra("matkuluserid");
-        final String source = intent.getStringExtra("source");
+        final String ID_USER = intent.getStringExtra("ID_USER");
         final String urlPhoto = intent.getStringExtra("urlPhoto");
-
-        Toast.makeText(this, "Upload image for "+source, Toast.LENGTH_SHORT).show();
 
         Button buttonChooseImage = findViewById(R.id.buttonChooseImage);
         Button buttonUploadImage = findViewById(R.id.buttonUploadImage);
@@ -83,23 +81,22 @@ public class Upload extends AppCompatActivity {
                 riversRef = mStorageRef.child("images/"+editTextImageName.getText().toString()+".jpg");
 
                 FirebaseStorage mFirebaseStorage = FirebaseStorage.getInstance().getReference().getStorage();
-                StorageReference desertRef = mFirebaseStorage.getReferenceFromUrl(urlPhoto);
+//                StorageReference desertRef = mFirebaseStorage.getReferenceFromUrl(urlPhoto);
 
+//                desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // File deleted successfully
+//                        Log.d(TAG, urlPhoto+" DELETED");
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Uh-oh, an error occurred!
+//                        Log.d(TAG, urlPhoto+" DELETE FAILED");
+//                    }
+//                });
 
-                desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // File deleted successfully
-                        Log.d(TAG, urlPhoto+" DELETED");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Uh-oh, an error occurred!
-                        Log.d(TAG, urlPhoto+" DELETE FAILED");
-                    }
-                });
-//                Uri uploadUri = Uri.fromFile(new File(filePath.toString()));
                 UploadTask uploadTask = riversRef.putFile(filePath);
 
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -115,14 +112,11 @@ public class Upload extends AppCompatActivity {
 
                                 String downloadUrl = uri.toString();
 
-                                Log.d(TAG,source);
-                                Log.d(TAG,key);
-                                Log.d(TAG,menuuserid);
                                 Log.d(TAG,downloadUrl);
-                                if(source.equals("user")){
-                                    myRef = database.getReference("Users");
+//                                if(source.equals("user")){
+                                    myRef = database.getReference("Menu").child(ID_USER);
 //                                    User mUser = new User(key, "", "", downloadUrl);
-                                    myRef.child(key).child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    myRef.child(key).child("gambar").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
@@ -135,23 +129,23 @@ public class Upload extends AppCompatActivity {
                                             }
                                         }
                                     });
-                                }else if(source.equals("matkul")){
-                                    myRef = database.getReference("Matkul").child(menuuserid);
-//                                    Matkul mMatkul = new Matkul(key, "", "", downloadUrl);
-                                    myRef.child(key).child("matkulImage").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(Upload.this, "Success! Matkul Image was save in database.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            } else {
-                                                Toast.makeText(Upload.this, "Oops! Something went wrong, please try again",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                                }
+//                                }else if(source.equals("matkul")){
+//                                    myRef = database.getReference("Matkul").child(menuuserid);
+////                                    Matkul mMatkul = new Matkul(key, "", "", downloadUrl);
+//                                    myRef.child(key).child("matkulImage").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            if (task.isSuccessful()) {
+//                                                Toast.makeText(Upload.this, "Success! Matkul Image was save in database.",
+//                                                        Toast.LENGTH_SHORT).show();
+//                                                finish();
+//                                            } else {
+//                                                Toast.makeText(Upload.this, "Oops! Something went wrong, please try again",
+//                                                        Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//                                    });
+//                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -169,7 +163,7 @@ public class Upload extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Storage fail"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Storage fail, "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("storage",e.getMessage());
                     }
                 });
@@ -183,8 +177,8 @@ public class Upload extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ImageView imageViewOutput = (ImageView) findViewById(R.id.imageViewOutput);
-        Button buttonChooseImage = (Button) findViewById(R.id.buttonChooseImage);
+        ImageView imageViewOutput = findViewById(R.id.imageViewOutput);
+        Button buttonChooseImage = findViewById(R.id.buttonChooseImage);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();

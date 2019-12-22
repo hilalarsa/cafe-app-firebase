@@ -1,6 +1,8 @@
 package com.example.mycafe30;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-
-
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
                             User userObj = user.getValue(User.class);
 
                             if (userObj.getPassword().equals(passwordFromEditText)) {
-                                Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Admin", Toast.LENGTH_SHORT).show();
 
                                 if(userObj.getLevel().equals("1")){
                                     Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Admin", Toast.LENGTH_SHORT).show();
@@ -62,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }else{
                                     Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Kasir", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, KasirActivity.class);
+                                    intent.putExtra("ID_USER", userObj.getIdUser());
                                     startActivity(intent);
                                 }
 

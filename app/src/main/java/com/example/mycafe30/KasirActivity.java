@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,14 +14,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class KasirActivity extends AppCompatActivity {
     Button btnMenu, btnMeja;
+    String ID_USER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kasir);
 
+        Intent intent = getIntent();
+        ID_USER = intent.getStringExtra("ID_USER");
+        Log.d("TAG", ID_USER);
+
         initView();
         initListener();
+
     }
 
     //menu logout
@@ -57,14 +64,16 @@ public class KasirActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(KasirActivity.this, ListMenu.class);
+                Log.d("TAG", ID_USER);
+                intent.putExtra("ID_USER", ID_USER);
                 startActivity(intent);
             }
         });
         btnMeja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(KasirActivity.this, ListMeja.class);
-                startActivity(intent);
+//                Intent intent = new Intent(KasirActivity.this, ListMeja.class);
+//                startActivity(intent);
             }
         });
     }

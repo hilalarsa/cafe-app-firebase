@@ -3,7 +3,9 @@ package com.example.mycafe30;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -39,22 +41,28 @@ public class ListMenu extends AppCompatActivity {
     EditText editTextNamaMenu, editTextDeskripsi, editTextHarga;
     ListView listViewMenus;
 
-    private String TAG = "test";
+    String ID_USER;
+
+    private String TAG = "TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_menu);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Menu");
+        Intent intent = getIntent();
+        ID_USER = intent.getStringExtra("ID_USER");
+        Log.d("TAG", ID_USER);
 
         initViews();
         initListener();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Menu").child(ID_USER);
 
         listViewMenus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Menu Menu = Menus.get(i);
-                CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getGambar(), Menu.getHarga(), Menu.getIdUser());
+                CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getHarga(), Menu.getGambar(), Menu.getIdUser());
             }
         });
     }
@@ -86,7 +94,7 @@ public class ListMenu extends AppCompatActivity {
         });
     }
 
-    private void CallUpdateAndDeleteDialog(final String id_menu, String nama_menu, String deskripsi, final String harga, final String gambar,final String id_user) {
+    private void CallUpdateAndDeleteDialog(final String id_menu, final String nama_menu, final String deskripsi, final String harga, final String gambar,final String id_user) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -122,11 +130,9 @@ public class ListMenu extends AppCompatActivity {
                 if (!TextUtils.isEmpty(nama_menu)) {
                     if (!TextUtils.isEmpty(deskripsi)) {
                         if (!TextUtils.isEmpty(harga)) {
-                            if (!TextUtils.isEmpty(gambar)) {
-                                //Method for update data
-                                updateMenu(id_menu, nama_menu, deskripsi, harga, "");
-                                b.dismiss();
-                            }
+                            updateMenu(id_menu, nama_menu, deskripsi, harga, "");
+                            b.dismiss();
+
                         }
                     }
                 }
@@ -148,10 +154,9 @@ public class ListMenu extends AppCompatActivity {
             public void onClick(View view) {
                 //Method for delete data
                 Intent intent = new Intent(ListMenu.this, Upload.class);
-                intent.putExtra("key", id_user);
-                intent.putExtra("source", "user");
-                intent.putExtra("menuuserid", id_user);
-                intent.putExtra("urlPhoto", "");
+                intent.putExtra("key", id_menu);
+                intent.putExtra("ID_USER", ID_USER);
+                intent.putExtra("urlPhoto", gambar);
                 startActivity(intent);
             }
         });
@@ -204,7 +209,7 @@ public class ListMenu extends AppCompatActivity {
                 //it will create a unique id and we will use it as the Primary Key for our User
                 String id = databaseReference.push().getKey();
                 //creating an User Object
-                Menu Menu = new Menu(id, nama_menu, deskripsi, harga, "", "1");
+                Menu Menu = new Menu(id, nama_menu, deskripsi, harga, "", ID_USER);
                 //Saving the Menu
                 databaseReference.child(id).setValue(Menu);
 
@@ -222,8 +227,8 @@ public class ListMenu extends AppCompatActivity {
 
     private boolean updateMenu(String id, String nama_menu, String deskripsi, String harga, String gambar) {
         //getting the specified User reference
-        DatabaseReference UpdateReference = FirebaseDatabase.getInstance().getReference("Menu").child(id);
-        Menu Menu = new Menu(id, nama_menu, deskripsi, harga, gambar, "1");
+        DatabaseReference UpdateReference = databaseReference.child(id);
+        Menu Menu = new Menu(id, nama_menu, deskripsi, harga, gambar, ID_USER);
         //update  User  to firebase
         UpdateReference.setValue(Menu);
         Toast.makeText(getApplicationContext(), "Menu Updated", Toast.LENGTH_LONG).show();
@@ -232,7 +237,7 @@ public class ListMenu extends AppCompatActivity {
 
     private boolean deleteMenu(String id) {
         //getting the specified Menu reference
-        DatabaseReference DeleteReference = FirebaseDatabase.getInstance().getReference("Menu").child(id);
+        DatabaseReference DeleteReference = databaseReference.child(id);
         //removing Menu
         DeleteReference.removeValue();
 //        DeleteReferenceMatkul.removeValue();

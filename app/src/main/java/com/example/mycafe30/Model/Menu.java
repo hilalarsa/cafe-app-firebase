@@ -52,5 +52,5 @@ public class Menu {
     public void setGambar(String gambar) {this.gambar = gambar;}
 
     public String getIdUser() {return id_user;}
-    public void setIdUser(String id_user) {this.gambar = id_user;}
+    public void setIdUser(String id_user) {this.id_user = id_user;}
 }
