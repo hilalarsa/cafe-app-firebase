@@ -60,12 +60,12 @@ public class KasirActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        btnMeja.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(KasirActivity.this, ListUser.class);
-//                startActivity(intent);
-//            }
-//        });
+        btnMeja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KasirActivity.this, ListMeja.class);
+                startActivity(intent);
+            }
+        });
     }
 }
