@@ -56,18 +56,16 @@ public class KasirActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //this method is actually performing the write operation
-//                Intent intent = new Intent(KasirActivity.this, ListCafe.class);
-//                startActivity(intent);
+                Intent intent = new Intent(KasirActivity.this, ListMenu.class);
+                startActivity(intent);
             }
         });
-        btnMeja.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //this method is actually performing the write operation
+//        btnMeja.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                Intent intent = new Intent(KasirActivity.this, ListUser.class);
 //                startActivity(intent);
-            }
-        });
+//            }
+//        });
     }
 }

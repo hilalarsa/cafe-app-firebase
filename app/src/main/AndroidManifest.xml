@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListUser"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ListMenu"></activity>
+        <activity android:name=".ListUser" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminActivity"></activity>
-        <activity android:name=".KasirActivity"></activity>
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".KasirActivity" />
     </application>
 
 </manifest>
