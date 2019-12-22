@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.mycafe30.Model.Meja;
-
 import com.example.mycafe30.Model.User;
 import com.example.mycafe30.R;
 
@@ -17,7 +16,7 @@ import java.util.List;
 public class MejaList extends ArrayAdapter {
 
     private Activity context;
-    //list of users
+    //list of meja
     List<Meja> Mejas;
 
     public MejaList(Activity context, List<Meja> Mejas) {
@@ -29,18 +28,19 @@ public class MejaList extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.layout_user_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_meja_list, null, true);
         //initialize
-        TextView textViewName = (TextView) listViewItem.findViewById
-                (R.id.textViewNamaMeja);
-        TextView textViewAddress = (TextView) listViewItem.findViewById
-                (R.id.textViewLevel);
-        //getting user at position
+        TextView textViewNo = (TextView) listViewItem.findViewById
+                (R.id.textViewNoMeja);
+        TextView textViewStatus = (TextView) listViewItem.findViewById
+                (R.id.textViewStatus);
+        //getting mejar at position
         Meja Meja = Mejas.get(position);
-        //set user name
-        textViewName.setText(Meja.getNama());
-        //set user email
-        textViewAddress.setText(Meja.getEmail());
+        //set mejar name
+        textViewNo.setText(Meja.getNoMeja());
+        //set mejar email
+        textViewStatus.setText(Meja.getStatus());
         return listViewItem;
     }
+
 }
