@@ -12,7 +12,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class KasirActivity extends AppCompatActivity {
-    Button btnMenu, btnMeja;
+    Button btnMenu, btnMeja, btnCafe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class KasirActivity extends AppCompatActivity {
                 editor.remove("password");
                 editor.commit();
                 finish();
-                return true;
+                return true; 
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -50,6 +50,7 @@ public class KasirActivity extends AppCompatActivity {
     public void initView(){
         btnMenu = findViewById(R.id.btnMenu);
         btnMeja = findViewById(R.id.btnMeja);
+        btnCafe = findViewById(R.id.btnEditCafe);
     }
 
     public void initListener(){
@@ -64,6 +65,13 @@ public class KasirActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(KasirActivity.this, ListMeja.class);
+                startActivity(intent);
+            }
+        });
+        btnCafe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KasirActivity.this, ListCafe.class);
                 startActivity(intent);
             }
         });
