@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".KasirActivity"
+    android:background="@color/colorAbu">
+
+    <Button
+        android:id="@+id/btnMeja"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnpink"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:textAlignment="center"
+        android:padding="14dp"
+        android:gravity="center"
+        android:text="MEJA"
+        android:textSize="16dp"
+        android:textColor="#fff"
+        android:color="#218F76"
+        />
+
+    <Button
+        android:id="@+id/btnMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btnkuning"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:textAlignment="center"
+        android:padding="14dp"
+        android:gravity="center"
+        android:text="Menu"
+        android:textSize="16dp"
+        android:textColor="#fff"
+        />
+
+    <Button
+        android:id="@+id/btnEditCafe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btntosca"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:textAlignment="center"
+        android:padding="14dp"
+        android:gravity="center"
+        android:text="Edit Cafe"
+        android:textSize="16dp"
+        android:textColor="#fff"
+        />
+
+</LinearLayout>
