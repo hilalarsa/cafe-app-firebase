@@ -40,7 +40,7 @@ public class KasirActivity extends AppCompatActivity {
                 editor.remove("password");
                 editor.commit();
                 finish();
-                return true; 
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
