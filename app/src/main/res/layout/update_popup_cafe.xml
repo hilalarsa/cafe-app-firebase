@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
+
+    <EditText
+        android:id="@+id/updateNamaCafe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama Cafe"
+        android:padding="20dp"/>
+    <EditText
+        android:id="@+id/updateLokasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lokasi"
+        android:padding="20dp"/>
+    <EditText
+        android:id="@+id/updateDeskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Deskripsi"
+        android:padding="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+        <Button
+            android:id="@+id/buttonDeleteCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btnmerah"
+            android:textAlignment="center"
+            android:padding="14dp"
+            android:gravity="center"
+            android:text="Delete"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            />
+        <Button
+            android:id="@+id/buttonUpdateCafe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btnhijau"
+            android:textAlignment="center"
+            android:padding="14dp"
+            android:gravity="center"
+            android:text="Update"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
+
+</LinearLayout>

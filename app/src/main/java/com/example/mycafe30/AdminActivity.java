@@ -56,9 +56,9 @@ public class AdminActivity extends AppCompatActivity {
         btnCafe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //this method is actually performing the write operation
-//                Intent intent = new Intent(AdminActivity.this, ListCafe.class);
-//                startActivity(intent);
+//                this method is actually performing the write operation
+                Intent intent = new Intent(AdminActivity.this, ListCafe.class);
+                startActivity(intent);
             }
         });
         btnUser.setOnClickListener(new View.OnClickListener() {
