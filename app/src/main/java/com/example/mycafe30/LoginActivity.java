@@ -53,7 +53,18 @@ public class LoginActivity extends AppCompatActivity {
                             User userObj = user.getValue(User.class);
 
                             if (userObj.getPassword().equals(passwordFromEditText)) {
-                                Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Admin", Toast.LENGTH_SHORT).show();
+
+                                if(userObj.getLevel().equals("1")){
+                                    Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Admin", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Welcome! You've logged in as : Kasir", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, KasirActivity.class);
+                                    startActivity(intent);
+                                }
+
                             } else {
                                 Toast.makeText(LoginActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -65,10 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("TAG", databaseError.toString());
                     }
                 });
-
-                //this method is actually performing the write operation
-//                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-//                startActivity(intent);
             }
         });
     }
