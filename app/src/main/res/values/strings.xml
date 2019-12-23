@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyCafe 3.0</string>
+    <string-array name="meja_options">
+        <item>Available</item>
+        <item>Booked</item>
+    </string-array>
+
 </resources>

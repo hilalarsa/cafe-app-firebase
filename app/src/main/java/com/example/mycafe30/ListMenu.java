@@ -58,11 +58,27 @@ public class ListMenu extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Menu").child(ID_USER);
 
+        listViewMenus.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Menu Menu = Menus.get(i);
+                CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getHarga(), Menu.getGambar(), Menu.getIdUser());
+                return true;
+            }
+        });
+
         listViewMenus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Menu Menu = Menus.get(i);
                 CallUpdateAndDeleteDialog(Menu.getIdMenu(), Menu.getNamaMenu(), Menu.getDeskripsi(), Menu.getHarga(), Menu.getGambar(), Menu.getIdUser());
+                Intent intent = new Intent(ListMenu.this, Detail.class);
+                intent.putExtra("id", Menu.getIdMenu());
+                intent.putExtra("nama_menu", Menu.getNamaMenu());
+                intent.putExtra("harga", Menu.getHarga());
+                intent.putExtra("deskripsi", Menu.getDeskripsi());
+                intent.putExtra("gambar", Menu.getGambar());
+                startActivity(intent);
             }
         });
     }

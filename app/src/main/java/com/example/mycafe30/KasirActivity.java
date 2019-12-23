@@ -13,7 +13,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class KasirActivity extends AppCompatActivity {
-    Button btnMenu, btnMeja;
+    Button btnMenu, btnMeja, btnCafe;
     String ID_USER;
 
     @Override
@@ -27,7 +27,6 @@ public class KasirActivity extends AppCompatActivity {
 
         initView();
         initListener();
-
     }
 
     //menu logout
@@ -57,6 +56,7 @@ public class KasirActivity extends AppCompatActivity {
     public void initView(){
         btnMenu = findViewById(R.id.btnMenu);
         btnMeja = findViewById(R.id.btnMeja);
+        btnCafe = findViewById(R.id.btnEditCafe);
     }
 
     public void initListener(){
@@ -64,7 +64,6 @@ public class KasirActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(KasirActivity.this, ListMenu.class);
-                Log.d("TAG", ID_USER);
                 intent.putExtra("ID_USER", ID_USER);
                 startActivity(intent);
             }
@@ -72,8 +71,16 @@ public class KasirActivity extends AppCompatActivity {
         btnMeja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(KasirActivity.this, ListMeja.class);
-//                startActivity(intent);
+                Intent intent = new Intent(KasirActivity.this, ListMeja.class);
+                intent.putExtra("ID_USER", ID_USER);
+                startActivity(intent);
+            }
+        });
+        btnCafe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KasirActivity.this, ListCafe.class);
+                startActivity(intent);
             }
         });
     }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.mycafe30.ListAdapter.CafeList;
 import com.example.mycafe30.ListAdapter.MenuList;
 import com.example.mycafe30.Model.Cafe;
+import com.example.mycafe30.Model.Meja;
 import com.example.mycafe30.Model.Menu;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,11 +46,12 @@ public class ListCafe extends AppCompatActivity {
         initViews();
         initListener();
 
-        listViewCafes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewCafes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Cafe Cafe = Cafes.get(i);
                 CallUpdateAndDeleteDialog(Cafe.getIdCafe(), Cafe.getNamaCafe(), Cafe.getLokasi(), Cafe.getDeskripsi(), Cafe.getIdUser());
+                return true;
             }
         });
     }
@@ -213,7 +215,7 @@ public class ListCafe extends AppCompatActivity {
 
     private boolean updateCafe(String id, String nama_cafe, String lokasi, String deskripsi) {
         //getting the specified User reference
-        DatabaseReference UpdateReference = FirebaseDatabase.getInstance().getReference("Cafe").child(id);
+        DatabaseReference UpdateReference = databaseReference.child(id);
         Cafe Cafe = new Cafe(id, nama_cafe, lokasi, deskripsi, "1");
         //update  User  to firebase
         UpdateReference.setValue(Cafe);
@@ -223,7 +225,7 @@ public class ListCafe extends AppCompatActivity {
 
     private boolean deleteCafe(String id) {
         //getting the specified Menu reference
-        DatabaseReference DeleteReference = FirebaseDatabase.getInstance().getReference("Cafe").child(id);
+        DatabaseReference DeleteReference = databaseReference.child(id);
         //removing Menu
         DeleteReference.removeValue();
 //        DeleteReferenceMatkul.removeValue();
