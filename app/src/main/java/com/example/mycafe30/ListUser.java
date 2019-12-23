@@ -31,7 +31,7 @@ public class ListUser extends AppCompatActivity {
     List<User> Users;
 
     Button btnAdd;
-    EditText editTextNama, editTextEmail, editTextUsername, editTextPassword;
+    EditText editTextNama, editTextEmail, editTextUsername, editTextPassword, editTextLevel;
     ListView listViewUsers;
 
     private String TAG = "test";
@@ -92,11 +92,13 @@ public class ListUser extends AppCompatActivity {
         final EditText updateEmail = dialogView.findViewById(R.id.updateEmail);
         final EditText updateUsername = dialogView.findViewById(R.id.updateUsername);
         final EditText updatePassword = dialogView.findViewById(R.id.updatePassword);
+        final EditText updateLevel = dialogView.findViewById(R.id.updateLevel);
 
         updateName.setText(nama);
         updateEmail.setText(email);
         updateUsername.setText(username);
         updatePassword.setText(password);
+        updateLevel.setText(level);
 
         final Button buttonUpdate = dialogView.findViewById(R.id.buttonUpdateUser);
         final Button buttonDelete = dialogView.findViewById(R.id.buttonDeleteUser);
@@ -115,6 +117,7 @@ public class ListUser extends AppCompatActivity {
                 String email = updateEmail.getText().toString().trim();
                 String username = updateUsername.getText().toString().trim();
                 String password = updatePassword.getText().toString().trim();
+                String level = updateLevel.getText().toString().trim();
                 //checking if the value is provided or not Here, you can Add More Validation as you required
 
                 if (!TextUtils.isEmpty(nama)) {
@@ -122,7 +125,7 @@ public class ListUser extends AppCompatActivity {
                         if (!TextUtils.isEmpty(username)) {
                             if (!TextUtils.isEmpty(password)) {
                                 //Method for update data
-                                updateUser(id_user, nama, email, username, password);
+                                updateUser(id_user, nama, email, username, password, level);
                                 b.dismiss();
                             }
                         }
@@ -172,6 +175,7 @@ public class ListUser extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
+        editTextLevel = findViewById(R.id.level);
 
         listViewUsers = findViewById(R.id.listViewUsers);
         Users = new ArrayList<>();
@@ -193,6 +197,7 @@ public class ListUser extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String level = editTextLevel.getText().toString().trim();
 
         //checking if the value is provided or not Here, you can Add More Validation as you required
 
@@ -202,7 +207,7 @@ public class ListUser extends AppCompatActivity {
                 //it will create a unique id and we will use it as the Primary Key for our User
                 String id = databaseReference.push().getKey();
                 //creating an User Object
-                User User = new User(id, nama, email, username, password, "1");
+                User User = new User(id, nama, email, username, password, level);
                 //Saving the User
                 databaseReference.child(id).setValue(User);
 
@@ -210,6 +215,7 @@ public class ListUser extends AppCompatActivity {
                 editTextEmail.setText("");
                 editTextUsername.setText("");
                 editTextPassword.setText("");
+                editTextLevel.setText("");
                 Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Please enter an Email", Toast.LENGTH_LONG).show();
@@ -219,10 +225,10 @@ public class ListUser extends AppCompatActivity {
         }
     }
 
-    private boolean updateUser(String id, String nama, String email, String username, String password) {
+    private boolean updateUser(String id, String nama, String email, String username, String password, String level) {
         //getting the specified User reference
         DatabaseReference UpdateReference = FirebaseDatabase.getInstance().getReference("Users").child(id);
-        User User = new User(id, nama, email, username, password, "1");
+        User User = new User(id, nama, email, username, password, level);
         //update  User  to firebase
         UpdateReference.setValue(User);
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();

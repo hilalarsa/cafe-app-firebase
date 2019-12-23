@@ -56,7 +56,6 @@ public class KasirActivity extends AppCompatActivity {
     public void initView(){
         btnMenu = findViewById(R.id.btnMenu);
         btnMeja = findViewById(R.id.btnMeja);
-        btnCafe = findViewById(R.id.btnEditCafe);
     }
 
     public void initListener(){
@@ -73,13 +72,6 @@ public class KasirActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(KasirActivity.this, ListMeja.class);
                 intent.putExtra("ID_USER", ID_USER);
-                startActivity(intent);
-            }
-        });
-        btnCafe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(KasirActivity.this, ListCafe.class);
                 startActivity(intent);
             }
         });
